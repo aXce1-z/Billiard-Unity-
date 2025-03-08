@@ -1,4 +1,0 @@
-repository "billiard@tj_axce1_z@cloud.cn"
-  path "/"
-    br "/main"
-    co "/main"
