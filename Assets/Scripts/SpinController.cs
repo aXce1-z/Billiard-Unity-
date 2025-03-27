@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 public class SpinController : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
     [SerializeField] private GameEvent cueballSpinChanged;
-    [SerializeField] private Transform controllerArea, strikePoint;
-    [SerializeField] private float controllerRadius, snapOffset;
+    [SerializeField] private Transform controllerArea, strikePoint, strikePointBtn;
+    [SerializeField] private float controllerRadius, btnRadius, snapOffset;
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -30,6 +30,7 @@ public class SpinController : MonoBehaviour, IPointerDownHandler, IDragHandler
             p *= controllerRadius / radius;
         }
         strikePoint.localPosition = p;
+        strikePointBtn.localPosition = p * btnRadius / controllerRadius;
 
         Vector2 spin = new Vector2(p.x / controllerRadius, p.y / controllerRadius);
 

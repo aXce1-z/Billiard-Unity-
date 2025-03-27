@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,414 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: p1-p2-transition_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57350dcde35a44f4cafb3524f2068584
+      internalID: 254408908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_1
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbfbeecdce211547b5af25c229aa3a7
+      internalID: -564618062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_2
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6edf11e6813772948881f9a91284d937
+      internalID: -1859958241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_3
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b455978937723b649ab0bfd363110924
+      internalID: 402438871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_4
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e17310f566a36b745bcb36f5f203f8d2
+      internalID: -2104622978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_5
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1b2f6f5f4fc2cd4e8426bbfa45df8dd
+      internalID: 1445325823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_6
+      rect:
+        serializedVersion: 2
+        x: 1662
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce1f74d1f49952748be3033907f5f495
+      internalID: -1716458093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_7
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01bc23f6d336ad64aab6276e2e7b0888
+      internalID: -1344443995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_8
+      rect:
+        serializedVersion: 2
+        x: 2216
+        y: 210
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f7eb54d1709134d9a5a9baad3b271b
+      internalID: -572366412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e8a25bd0788f5468a057125d54c4a7
+      internalID: -1996040142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_10
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1db91c99cd4002947b2fa9ffa19d2f24
+      internalID: -253190488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_11
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee9f146a1f4f904c943f0fde21e8f90
+      internalID: 1333950092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_12
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c49372f8ba31fc429974bf4382963a1
+      internalID: -671487096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_13
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a979d436a202af4f8698795eddee824
+      internalID: -223524262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_14
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b89d940dc2e8e43a68c20f0694bf65
+      internalID: 2139352788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_15
+      rect:
+        serializedVersion: 2
+        x: 1662
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7782079574a31dd40950306f9629c417
+      internalID: -2091042507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_16
+      rect:
+        serializedVersion: 2
+        x: 1939
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fafedea95f253cb4b949821c21f6b350
+      internalID: -2014618413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: p1-p2-transition_17
+      rect:
+        serializedVersion: 2
+        x: 2216
+        y: 0
+        width: 277
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfab22bad243eda4ebce326010bf841b
+      internalID: 72344389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      p1-p2-transition_0: 254408908
+      p1-p2-transition_1: -564618062
+      p1-p2-transition_10: -253190488
+      p1-p2-transition_11: 1333950092
+      p1-p2-transition_12: -671487096
+      p1-p2-transition_13: -223524262
+      p1-p2-transition_14: 2139352788
+      p1-p2-transition_15: -2091042507
+      p1-p2-transition_16: -2014618413
+      p1-p2-transition_17: 72344389
+      p1-p2-transition_2: -1859958241
+      p1-p2-transition_3: 402438871
+      p1-p2-transition_4: -2104622978
+      p1-p2-transition_5: 1445325823
+      p1-p2-transition_6: -1716458093
+      p1-p2-transition_7: -1344443995
+      p1-p2-transition_8: -572366412
+      p1-p2-transition_9: -1996040142
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

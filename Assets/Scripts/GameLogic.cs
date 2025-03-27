@@ -27,7 +27,7 @@ public enum GameState
 }
 public class GameLogic : MonoBehaviour
 {
-    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack;
+    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn;
     [SerializeField] private GameState currentState, pendingState;
     [SerializeField] private bool playerOneTurn;
     private int solidsLeft, stripesLeft;
@@ -41,7 +41,7 @@ public class GameLogic : MonoBehaviour
     {
         currentState = GameState.GameStarted;
         solidsLeft = stripesLeft = 7;
-        playerOneTurn = true;
+        PassTurn();
         player = "Player One";
     }
 
@@ -301,6 +301,7 @@ public class GameLogic : MonoBehaviour
     private void PassTurn()
     {
         playerOneTurn = !playerOneTurn;
+        passTurn.Raise(playerOneTurn);
     }
     private BallType GetCorrectBallType()
     {

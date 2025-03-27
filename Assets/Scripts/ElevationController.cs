@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class ElevationController : MonoBehaviour, IDragHandler
 {
     [SerializeField] private GameEvent elevationChanged;
-    [SerializeField] private Transform angleBar;
+    [SerializeField] private Transform angleBar, angleBarBtn;
 
 
     private float currentAngle;
@@ -24,7 +24,7 @@ public class ElevationController : MonoBehaviour, IDragHandler
 
     private void UpdateElevation()
     {
-        angleBar.rotation = new Quaternion()
+        angleBar.rotation = angleBarBtn.rotation= new Quaternion()
         {
             eulerAngles = Vector3.forward * currentAngle
         };
