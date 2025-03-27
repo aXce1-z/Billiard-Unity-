@@ -1,20 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Table : MonoBehaviour
 {
-    [SerializeField] private GameEvent allBallsSleeping;
+    [SerializeField] private GameEvent allBallsSleeping, ballOffTheTable, ballPocketed, ballHitByCueball, ballHitRail;
     [SerializeField] private Ball eightBall;
     [SerializeField] private Cueball cueball;
     [SerializeField] private Ball[] stripes, solids;
     private List<Ball> activeBalls = new List<Ball>();
+    private Vector3 cueballPreStrikePos, eightballPreStrikePos;
+    private Vector3 cueballDefaulPos, eightballDefaultPos;
 
     private void Awake()
     {
         Ball.table = this;
-        RackBalls();
         cueball.IsBreaker = true;
+
+        cueballDefaulPos = cueball.transform.position;
+        eightballDefaultPos = eightBall.transform.position;
+    }
+
+    private void Start()
+    {
+        RackBalls();
+    }
+
+    public void UpdatePreStrikePos()
+    {
+        cueballPreStrikePos = cueball.transform.position;
+        eightballPreStrikePos = eightBall.transform.position;
     }
 
     private void RackBalls()
@@ -43,8 +59,10 @@ public class Table : MonoBehaviour
                 Vector3 pos = eightBallPos;
                 pos.x = eightBallPos.x + deltaX * (j - 2);
                 pos.z = eightBallPos.z + deltaZ * (2 * i - j);
-                
+
                 b.transform.position = pos;
+                b.transform.rotation = Quaternion.identity;
+                b.ShowBall();
             }
         }
     }
@@ -64,5 +82,61 @@ public class Table : MonoBehaviour
         {
             allBallsSleeping.Raise();
         }
+    }
+
+    public void ReportOffTheTable(Ball b)
+    {
+        ballOffTheTable.Raise(b);
+        ReportInactive(b);
+    }
+
+    public void ReportPocketed(Ball b)
+    {
+        ballPocketed.Raise(b);
+        ReportInactive(b);
+    }
+
+    public void ReportHitByCueball(Ball b)
+    {
+        ballHitByCueball.Raise(b);
+    }
+
+    public void ReportRailHit(Ball b)
+    {
+        ballHitRail.Raise(b);
+    }
+
+    public void RespotCueball(object respotBehindHeadstring)
+    {
+        RespotCueball(cueballPreStrikePos, (bool)respotBehindHeadstring);
+    }
+
+    private void RespotCueball(Vector3 pos, bool isBreaker)
+    {
+        cueball.IsBreaker = isBreaker;
+        cueball.EnablePhysics(false);
+        cueball.transform.position = pos;
+        cueball.EnablePhysics(true);
+        cueball.ShowBall();
+    }
+    public void RespotEightball()
+    {
+        RespotEightball(eightballPreStrikePos);
+    }
+
+    private void RespotEightball(Vector3 pos)
+    {
+        eightBall.EnablePhysics(false);
+        eightBall.transform.position = pos;
+        eightBall.EnablePhysics(true);
+        eightBall.ShowBall();
+    }
+
+    public void ReRack()
+    {
+        RespotCueball(cueballDefaulPos, true);
+        RespotEightball(eightballDefaultPos);
+        cueball.transform.rotation = eightBall.transform.rotation = Quaternion.identity;
+        RackBalls();
     }
 }

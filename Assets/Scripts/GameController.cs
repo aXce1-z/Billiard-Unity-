@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameEvent mouseClickNotOverUI;
     [SerializeField] private Cuestick cuestick;
     [SerializeField] private Cueball cueball;
-    [SerializeField] private Transform tableBedTopLeft, tableBedBottomRight;
+    [SerializeField] private Transform tableBedTopLeft, tableBedBottomRight, kitchenBottomRight;
 
     private Vector3 prevMPos;
     private EventSystem es;
@@ -127,8 +127,15 @@ public class GameController : MonoBehaviour
 
         Vector3 newPos = cueball.transform.position + worldSpaceDiff;
 
-        newPos.x = Mathf.Clamp(newPos.x, tableBedTopLeft.position.x, tableBedBottomRight.position.x);
-        newPos.z = Mathf.Clamp(newPos.z, tableBedBottomRight.position.z, tableBedTopLeft.position.z);
+        float minX, maxX, minZ, maxZ;
+
+        minX = tableBedTopLeft.position.x;
+        maxZ= tableBedTopLeft.position.z;
+        minZ = tableBedBottomRight.position.z;
+        maxX= cueball.IsBreaker ? kitchenBottomRight.position.x : tableBedBottomRight.position.x;
+
+        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+        newPos.z = Mathf.Clamp(newPos.z, minZ, maxZ);
 
         cueball.Move(newPos);
     }

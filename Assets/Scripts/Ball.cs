@@ -1,10 +1,20 @@
 using System.Collections;
 using UnityEngine;
 
+public enum BallType
+{
+    Cue,
+    Eight,
+    Solid,
+    Stripe
+}
 public class Ball : MonoBehaviour
 {
     public static Table table;
     public static float Radius { get; protected set; }
+
+    [SerializeField] private BallType type; public BallType GetBallType() { return type; }
+
     protected Rigidbody rb;
     private MeshRenderer rend;
     protected virtual void Awake()
@@ -36,8 +46,10 @@ public class Ball : MonoBehaviour
     {
         GameObject obj = collision.gameObject;
 
-        if(collision.gameObject.layer == 8)
+        if(collision.gameObject.layer == 8)//cueball
         {
+            table.ReportHitByCueball(this);
+
             Cueball cb = collision.gameObject.GetComponent<Cueball>();
             if (cb.IsBreaker)
             {
@@ -46,14 +58,28 @@ public class Ball : MonoBehaviour
             }
         }
 
-        if(obj.layer == 9)
+        if(obj.layer == 9)//pockets
         {
-            EnablePhysics(false);
-            table.ReportInactive(this);
+            EnablePhysics(false);          
             StartCoroutine(HideBall());
+            table.ReportPocketed(this);
+
+        }
+
+        if (obj.layer == 10)//rails
+        {
+            table.ReportRailHit(this);
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject obj = other.gameObject;
+        if (obj.layer == 11)//table bounds
+        {
+            table.ReportOffTheTable(this);
+        }
+    }
     private IEnumerator HandleBreakShot(Ball b)
     {
         yield return null;
@@ -72,6 +98,15 @@ public class Ball : MonoBehaviour
             rend.material.color = c;
         }
         c.a = 0;
+        rend.material.color = c;
+    }
+
+    public void ShowBall()
+    {
+        StopAllCoroutines();
+
+        Color c = rend.material.color;
+        c.a = 1;
         rend.material.color = c;
     }
     public void EnablePhysics(bool enable)

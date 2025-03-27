@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 591041102059eba439644f946f8a9ee0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cbReadyForStrike: {fileID: 11400000, guid: ddacc0e0cbe2eed4cb42d5873015d186, type: 2}
+  - cbReadyForRepositioning: {fileID: 11400000, guid: d7d04cc1819a956468b9f8b15da17057, type: 2}
+  - respotCueball: {fileID: 11400000, guid: a059f06e613a6a5448a4e1cc01db267c, type: 2}
+  - respotEightball: {fileID: 11400000, guid: 44b4660158a6c3846b1ae7c58deb4282, type: 2}
+  - rerack: {fileID: 11400000, guid: 09cdb8d35da3f3842958c2f96bc61563, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
