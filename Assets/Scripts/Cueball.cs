@@ -8,7 +8,6 @@ public class Cueball : Ball
 
     protected override void Awake()
     {
-        //rb = GetComponent<Rigidbody>();
         base.Awake();
         col = GetComponent<SphereCollider>();
         Radius = col.radius;

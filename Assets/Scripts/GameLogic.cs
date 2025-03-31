@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum GameState
@@ -27,7 +22,7 @@ public enum GameState
 }
 public class GameLogic : MonoBehaviour
 {
-    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn;
+    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn, groupsAssigned;
     [SerializeField] private GameState currentState, pendingState;
     [SerializeField] private bool playerOneTurn;
     private int solidsLeft, stripesLeft;
@@ -42,7 +37,7 @@ public class GameLogic : MonoBehaviour
         currentState = GameState.GameStarted;
         solidsLeft = stripesLeft = 7;
         PassTurn();
-        player = "Player One";
+        player = "Player 1";
     }
 
     public void RestartGame()
@@ -211,7 +206,7 @@ public class GameLogic : MonoBehaviour
         {
             if (eightballPocketed)
             {
-                player = playerOneTurn ? "Player One" : "Player Two";
+                player = playerOneTurn ? "Player 1" : "Player 2";
                 Debug.Log($"{player} wins!");
                 currentState = GameState.GameOver;
                 return;
@@ -258,7 +253,20 @@ public class GameLogic : MonoBehaviour
 
     private void AssignGroups()
     {
-        BallType AssignedGroup = solidsLeft < stripesLeft ? BallType.Solid : BallType.Stripe;
+        int solids =0, stripes = 0;
+        foreach (var b in ballsPocketed)
+        {
+            switch (b.GetBallType())
+            {
+                case BallType.Solid:
+                    solids++;
+                    break;
+                case BallType.Stripe:
+                    stripes++;
+                    break;
+            }
+        }
+        BallType AssignedGroup = solids > stripes ? BallType.Solid : BallType.Stripe;
 
         if (playerOneTurn)
         {
@@ -270,6 +278,8 @@ public class GameLogic : MonoBehaviour
             playerTwoBallType = AssignedGroup;
             playerOneBallType = AssignedGroup == BallType.Solid ? BallType.Stripe : BallType.Solid;
         }
+
+        groupsAssigned.Raise(playerOneBallType);
     }
     private void ClearShotInfo()
     {
@@ -355,7 +365,7 @@ public class GameLogic : MonoBehaviour
 
             if (currentState == GameState.OpenTable)
             {
-                opponent= playerOneTurn ? "Player Two" : "Player One";
+                opponent= playerOneTurn ? "Player 2" : "Player 1";
                 Debug.Log($"Eightball pocketed. {opponent} wins!");
                 currentState = GameState.GameOver;
                 return;
@@ -364,7 +374,7 @@ public class GameLogic : MonoBehaviour
             {
                 if (!CheckEight())
                 {
-                    opponent = playerOneTurn ? "Player Two" : "Player One";
+                    opponent = playerOneTurn ? "Player 2" : "Player 1";
                     Debug.Log($"Eightball pocketed. {opponent} wins!");
                     currentState = GameState.GameOver;
                     return;

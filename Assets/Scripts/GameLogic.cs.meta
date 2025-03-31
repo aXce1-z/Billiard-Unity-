@@ -9,6 +9,8 @@ MonoImporter:
   - respotCueball: {fileID: 11400000, guid: a059f06e613a6a5448a4e1cc01db267c, type: 2}
   - respotEightball: {fileID: 11400000, guid: 44b4660158a6c3846b1ae7c58deb4282, type: 2}
   - rerack: {fileID: 11400000, guid: 09cdb8d35da3f3842958c2f96bc61563, type: 2}
+  - passTurn: {instanceID: 0}
+  - groupsAssigned: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

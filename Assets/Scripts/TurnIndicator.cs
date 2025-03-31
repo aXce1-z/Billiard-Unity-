@@ -28,7 +28,7 @@ public class TurnIndicator : MonoBehaviour
         foreach (Sprite s in p1Sprites)
         {
             hand.sprite = s;
-            yield return null;
+            yield return new WaitForSeconds(.01f);
         }
         p1NamePlate.sprite = p1NamePlateActive;
     }
@@ -39,7 +39,7 @@ public class TurnIndicator : MonoBehaviour
         foreach (Sprite s in p2Sprites)
         {
             hand.sprite = s;
-            yield return null;
+            yield return new WaitForSeconds(.01f);
         }
         p2NamePlate.sprite = p2NamePlateActive;
     }

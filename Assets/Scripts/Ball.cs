@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
     public static float Radius { get; protected set; }
 
     [SerializeField] private BallType type; public BallType GetBallType() { return type; }
+    [SerializeField] private int number; public int GetNumber() { return number; }
 
     protected Rigidbody rb;
     private MeshRenderer rend;
