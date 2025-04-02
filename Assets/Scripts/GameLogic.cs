@@ -22,7 +22,7 @@ public enum GameState
 }
 public class GameLogic : MonoBehaviour
 {
-    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn, groupsAssigned;
+    [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn, groupsAssigned, dialogMessageEvent;
     [SerializeField] private GameState currentState, pendingState;
     [SerializeField] private bool playerOneTurn;
     private int solidsLeft, stripesLeft;
@@ -135,7 +135,7 @@ public class GameLogic : MonoBehaviour
             {
                 if (railHits.Count < 4)
                 {
-                    Debug.Log("Illegal Break");
+                    dialogMessageEvent.Raise("Illegal Break!");
                     rerack.Raise();
                     PassTurn();
                     currentState = GameState.GameStarted;
@@ -172,7 +172,7 @@ public class GameLogic : MonoBehaviour
         if (currentState == GameState.OpenTable)
         {
             if (firstHitBall == null){
-                Debug.Log("Foul! No object ball hit by cueball.");
+                dialogMessageEvent.Raise("Foul! No object ball hit by cueball.");
                 PassTurn();
                 respotCueball.Raise(false);
                 currentState = GameState.OpenTableBallInHand;
@@ -183,7 +183,7 @@ public class GameLogic : MonoBehaviour
             {
                 if (railHits.Count == 0)
                 {
-                    Debug.Log("Foul! No rail hit.");
+                    dialogMessageEvent.Raise("Foul! No rail hit.");
                     PassTurn();
                     respotCueball.Raise(false);
                     currentState = GameState.OpenTableBallInHand;
@@ -207,14 +207,14 @@ public class GameLogic : MonoBehaviour
             if (eightballPocketed)
             {
                 player = playerOneTurn ? "Player 1" : "Player 2";
-                Debug.Log($"{player} wins!");
+                dialogMessageEvent.Raise($"{player} wins!");
                 currentState = GameState.GameOver;
                 return;
             }
          
             if (firstHitBall == null)
             {
-                Debug.Log("Foul! No object ball hit by cueball.");
+                dialogMessageEvent.Raise("Foul! No object ball hit by cueball.");
                 PassTurn();
                 respotCueball.Raise(false);
                 currentState = GameState.MainPhaseBallInHand;
@@ -226,7 +226,7 @@ public class GameLogic : MonoBehaviour
             {
                 if (railHits.Count == 0)
                 {
-                    Debug.Log("Foul! No rail hit.");
+                    dialogMessageEvent.Raise("Foul! No rail hit.");
                     PassTurn();
                     respotCueball.Raise(false);
                     currentState = GameState.MainPhaseBallInHand;
@@ -288,6 +288,7 @@ public class GameLogic : MonoBehaviour
         railHits.Clear();
         firstHitBall = null;
         eightballPocketed = false;
+        waitForRail = false;
         pendingState = GameState.undefined;
     }
 
@@ -321,7 +322,7 @@ public class GameLogic : MonoBehaviour
 
     public void BallOffTheTable(object ball)
     {
-        Debug.Log($"{((Ball)ball)}off the table!");
+        dialogMessageEvent.Raise("Ball off the table!");
         BallType t = ((Ball)ball).GetBallType();
         if (currentState == GameState.Breakshot)
         {
@@ -366,7 +367,7 @@ public class GameLogic : MonoBehaviour
             if (currentState == GameState.OpenTable)
             {
                 opponent= playerOneTurn ? "Player 2" : "Player 1";
-                Debug.Log($"Eightball pocketed. {opponent} wins!");
+                dialogMessageEvent.Raise($"Eightball pocketed. {opponent} wins!");
                 currentState = GameState.GameOver;
                 return;
             }
@@ -375,7 +376,7 @@ public class GameLogic : MonoBehaviour
                 if (!CheckEight())
                 {
                     opponent = playerOneTurn ? "Player 2" : "Player 1";
-                    Debug.Log($"Eightball pocketed. {opponent} wins!");
+                    dialogMessageEvent.Raise($"Eightball pocketed. {opponent} wins!");
                     currentState = GameState.GameOver;
                     return;
                 }
@@ -386,7 +387,7 @@ public class GameLogic : MonoBehaviour
 
         if (t == BallType.Cue)
         {
-            Debug.Log("Foul! Cueball pocketed.");
+            dialogMessageEvent.Raise("Foul! Cueball pocketed.");
             switch (currentState)
             {
                 case GameState.Breakshot:
@@ -415,6 +416,7 @@ public class GameLogic : MonoBehaviour
 
         if (currentState == GameState.Breakshot && b.GetBallType() == BallType.Cue) return;
 
+        if (!waitForRail) return;
         if (!railHits.Contains(b))
         {
             railHits.Add(b);
@@ -422,26 +424,31 @@ public class GameLogic : MonoBehaviour
     }
 
     private BallType? firstHitBall;
+    private bool waitForRail;
 
     public void HitByCueball(object ball)
     {
         Debug.Log($"{((Ball)ball)} hit by cueball!");
+
+        waitForRail = true;
+
         if (currentState == GameState.Breakshot) return;
         if (firstHitBall != null) return;
+
         firstHitBall = ((Ball)ball).GetBallType();
 
         if (currentState == GameState.OpenTable)
         {
             if (firstHitBall == BallType.Eight)
             {
-                Debug.Log("Foul! Wrong ball hit.");
+                dialogMessageEvent.Raise("Foul! Wrong ball hit.");
                 pendingState = GameState.OpenTableBallInHand;
             }
             return;
         }
         if (firstHitBall != GetCorrectBallType())
         {
-            Debug.Log("Foul! Wrong ball hit.");
+            dialogMessageEvent.Raise("Foul! Wrong ball hit.");
             pendingState = GameState.MainPhaseBallInHand;
             return;
         }

@@ -1,21 +1,35 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameEvent mouseClickNotOverUI;
     [SerializeField] private Cuestick cuestick;
     [SerializeField] private Cueball cueball;
+    [SerializeField] private CueballMover cueballMover;
     [SerializeField] private Transform tableBedTopLeft, tableBedBottomRight, kitchenBottomRight;
 
     private Vector3 prevMPos;
     private EventSystem es;
     private Camera cam;
+    private GraphicRaycaster gr;
 
     private void Awake()
     {
         es=EventSystem.current;
         cam= Camera.main;
+        gr = GetComponent<GraphicRaycaster>();
+    }
+
+    public void EnableUI()
+    {
+        gr.enabled = uiEnabled = true; 
+    }
+
+    public void DisableUI()
+    {
+        gr.enabled = uiEnabled = false;
     }
 
     private bool rotateCuestick, moveCueball, clickAboveBall, clickRightOfBall, aimAtBall;
@@ -48,8 +62,10 @@ public class GameController : MonoBehaviour
     }
 
     private Ball clickedBall;
+    private bool uiEnabled;
     private void HandlePointerDown(Vector3 pointerPos)
     {
+        if (!uiEnabled) return;
         if (es.IsPointerOverGameObject()) return;
 
         mouseClickNotOverUI.Raise();
@@ -58,7 +74,7 @@ public class GameController : MonoBehaviour
 
         if (Physics.Raycast(cam.ScreenPointToRay(pointerPos), out RaycastHit hit))
         {
-            moveCueball = hit.collider.GetComponent<Cueball>() != null;
+            moveCueball = hit.collider.GetComponent<CueballMover>() != null;
            clickedBall = hit.collider.GetComponent<Ball>();
         }
 
@@ -120,7 +136,7 @@ public class GameController : MonoBehaviour
     {
         Vector3 mPosWorld = Input.mousePosition;
         Vector3 prevMPosWorld = prevMPos;
-        mPosWorld.z = prevMPosWorld.z = cam.transform.position.y - cueball.transform.position.y;
+        mPosWorld.z = prevMPosWorld.z = cam.transform.position.y - cueballMover.transform.position.y;
 
         Vector3 worldSpaceDiff = cam.ScreenToWorldPoint(mPosWorld) - cam.ScreenToWorldPoint(prevMPosWorld);
 

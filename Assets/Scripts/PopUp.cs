@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PopUp : MonoBehaviour
 {
-    [SerializeField] private float animationDuration;
+    [SerializeField] private float animationDuration, autoHide;
 
     private CanvasGroup cg;
+    private WaitForSeconds autoHideTimer;
 
     private static List<PopUp> popups = new List<PopUp>();
 
@@ -17,6 +18,7 @@ public class PopUp : MonoBehaviour
         cg = GetComponent<CanvasGroup>();
 
         alphaPerFrame = 1 / animationDuration;
+        autoHideTimer = autoHide > 0 ? new WaitForSeconds(autoHide) : null;
 
         popups.Add(this);
         Hide();
@@ -42,6 +44,11 @@ public class PopUp : MonoBehaviour
             yield return null;
         }       
         cg.interactable = cg.blocksRaycasts = true;
+        if (autoHideTimer != null)
+        {
+            yield return autoHideTimer;
+            StartCoroutine(HideCoroutine());
+        }
     }
     public void Hide()
     {

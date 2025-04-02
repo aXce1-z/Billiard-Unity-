@@ -18,13 +18,16 @@ public class Ball : MonoBehaviour
 
     protected Rigidbody rb;
     private MeshRenderer rend;
+    private float defaultDrag;
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        defaultDrag = rb.angularDrag;
         rend = GetComponentInChildren<MeshRenderer>();
     }
 
     private bool isSleeping;
+
     private void FixedUpdate()
     {
         if (rb.isKinematic) return;
@@ -32,31 +35,73 @@ public class Ball : MonoBehaviour
         {
             isSleeping = false;
             table.ReportActive(this);
+
+            float speed = rb.velocity.magnitude;
+            if (speed < .01f)
+            {
+                rb.angularDrag += .03f;
+            }
         }
         else
         {
             if (!isSleeping)
             {
+                rb.angularDrag = defaultDrag;
                 isSleeping = true;
                 table.ReportInactive(this);
             }
         }
     }
 
+    private bool CheckCollision(Ball b)
+    {
+        if (Physics.SphereCast(rb.position, Radius, rb.velocity, out RaycastHit hit, 5 * Radius, ~(1 << 6)))
+        {
+            if (hit.collider.GetComponent<Ball>() == b)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected void HandleBallToBallCollision(Ball b)
+    {
+        if (CheckCollision(b)) return;
+            if (this.GetBallType() == BallType.Cue || b.GetBallType() == BallType.Cue)
+            {
+                Ball ob = this.GetBallType() == BallType.Cue ? b : this;
+                Cueball cb = this.GetBallType() == BallType.Cue ? (Cueball)this : (Cueball)b;
+
+                table.ReportHitByCueball(ob);
+
+                if (cb.IsBreaker)
+                {
+                    StartCoroutine(cb.HandleBreakShot(ob.rb));
+                    cb.IsBreaker = false;
+                }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         GameObject obj = collision.gameObject;
+        Ball b =obj.GetComponent<Ball>();
 
-        if(collision.gameObject.layer == 8)//cueball
+        if (b != null) 
         {
-            table.ReportHitByCueball(this);
-
-            Cueball cb = collision.gameObject.GetComponent<Cueball>();
-            if (cb.IsBreaker)
-            {
-                StartCoroutine(HandleBreakShot(cb));
-                cb.IsBreaker = false;
-            }
+            HandleBallToBallCollision(b);
+        }
+        if (obj.layer == 8)//cueball
+        {
+            obj.GetComponent<Cueball>().AddFrozen(this);
         }
 
         if(obj.layer == 9)//pockets
@@ -73,6 +118,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         GameObject obj = other.gameObject;
@@ -80,13 +126,6 @@ public class Ball : MonoBehaviour
         {
             table.ReportOffTheTable(this);
         }
-    }
-    private IEnumerator HandleBreakShot(Ball b)
-    {
-        yield return null;
-        float totalSpeed = (rb.velocity.magnitude + b.rb.velocity.magnitude) * (1 + Random.Range(0, .1f));
-        rb.velocity = rb.velocity.normalized * totalSpeed * .85f;
-        b.rb.velocity = b.rb.velocity.normalized * totalSpeed * .15f;
     }
 
     private IEnumerator HideBall()
@@ -110,7 +149,7 @@ public class Ball : MonoBehaviour
         c.a = 1;
         rend.material.color = c;
     }
-    public void EnablePhysics(bool enable)
+    public virtual void EnablePhysics(bool enable)
     {
         if (enable)
         {
