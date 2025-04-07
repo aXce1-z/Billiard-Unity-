@@ -45,9 +45,9 @@ public class Table : MonoBehaviour
         List<Ball> stripeBalls = new List<Ball>(stripes);
         List<Ball> currentBalls;
 
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
-            for(int j = i; j < 5; j++)
+            for (int j = i; j < 5; j++)
             {
                 if (i == 1 && j == 2) continue;
 
@@ -78,7 +78,7 @@ public class Table : MonoBehaviour
     public void ReportInactive(Ball b)
     {
         activeBalls.Remove(b);
-        if (activeBalls.Count== 0)
+        if (activeBalls.Count == 0)
         {
             allBallsSleeping.Raise();
         }
@@ -134,9 +134,29 @@ public class Table : MonoBehaviour
 
     public void ReRack()
     {
-        RespotCueball(cueballDefaulPos, true);
-        RespotEightball(eightballDefaultPos);
-        cueball.transform.rotation = eightBall.transform.rotation = Quaternion.identity;
+        cueball.EnablePhysics(false);
+        eightBall.EnablePhysics(false);
+        EnablePhysics(false);
+
+        eightBall.transform.position = eightballDefaultPos;
+        cueball.transform.rotation=eightBall.transform.rotation = Quaternion.identity;
+
         RackBalls();
+        RespotCueball(cueballDefaulPos, true);
+        eightBall.EnablePhysics(true);
+        eightBall.ShowBall();
+        EnablePhysics(true);
+    }
+
+    private void EnablePhysics(bool enable)
+    {
+        foreach (var b in stripes)
+        {
+            b.EnablePhysics(enable);
+        }
+        foreach (var b in solids)
+        {
+            b.EnablePhysics(enable);
+        }
     }
 }

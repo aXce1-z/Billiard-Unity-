@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartUp.unity
+    guid: 43f99768c5defbe4b837cd03095dbeea
+  - enabled: 1
+    path: Assets/Scenes/Billiard-Unity-.unity
+    guid: 11bd0667f43bd344d824435416d78726
   m_configObjects: {}

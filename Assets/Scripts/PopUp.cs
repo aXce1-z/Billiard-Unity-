@@ -65,4 +65,9 @@ public class PopUp : MonoBehaviour
         }
         cg.interactable = cg.blocksRaycasts = false;
     }
+
+    private void OnDisable()
+    {
+        popups.Remove(this);
+    }
 }

@@ -26,6 +26,11 @@ public class Cuestick : MonoBehaviour
         alphaPerFrame = 1 / animationDuration;
     }
 
+    public void Restart()
+    {
+        Hide();
+        parent.rotation = Quaternion.identity;
+    }
 
     public void Rotate(float angle)
     {

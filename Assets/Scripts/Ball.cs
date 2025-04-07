@@ -153,7 +153,10 @@ public class Ball : MonoBehaviour
     {
         if (enable)
         {
-            Respot(transform.position);
+            if (type == BallType.Cue || type == BallType.Eight) 
+            { 
+                Respot(transform.position);
+            }
         }
 
         rb.isKinematic = !enable;

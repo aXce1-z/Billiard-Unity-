@@ -14,6 +14,14 @@ public class BallDisplayManager : MonoBehaviour
     {
         BallDisplay.disabledColor = DisabledColor;
     }
+
+    public void Restart()
+    {
+        if (allDisplays.Count == 0) return;
+        Clear(1, 7);
+        Clear(9, 15);
+        allDisplays.Clear();
+    }
     public void DisplayBalls(object playerOneBallType)
     {
         BallDisplay[] solids, stripes;
