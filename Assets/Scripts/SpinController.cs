@@ -39,7 +39,8 @@ public class SpinController : MonoBehaviour, IPointerDownHandler, IDragHandler
    
     public void ResetSpin()
     {
-        strikePoint.localPosition = Vector3.zero;
+        strikePoint.localPosition = Vector3.zero; 
+        strikePointBtn.localPosition = Vector3.zero;
         cueballSpinChanged.Raise(Vector2.zero);
     }
 }

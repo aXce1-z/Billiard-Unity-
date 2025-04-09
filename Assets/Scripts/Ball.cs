@@ -5,12 +5,15 @@ public enum BallType
 {
     Cue,
     Eight,
+    Nine,
     Solid,
-    Stripe
+    Stripe,
+    Other
 }
 public class Ball : MonoBehaviour
 {
     public static Table table;
+    public static Table9Ball table9Ball;
     public static float Radius { get; protected set; }
 
     [SerializeField] private BallType type; public BallType GetBallType() { return type; }
@@ -34,7 +37,8 @@ public class Ball : MonoBehaviour
         if (!rb.IsSleeping())
         {
             isSleeping = false;
-            table.ReportActive(this);
+            if(table!=null)table.ReportActive(this);
+            if(table9Ball!=null)table9Ball.ReportActive(this); 
 
             float speed = rb.velocity.magnitude;
             if (speed < .01f)
@@ -48,7 +52,10 @@ public class Ball : MonoBehaviour
             {
                 rb.angularDrag = defaultDrag;
                 isSleeping = true;
-                table.ReportInactive(this);
+                if (table != null) table.ReportInactive(this);
+                if (table9Ball != null) table9Ball.ReportInactive(this);
+
+
             }
         }
     }
@@ -79,10 +86,12 @@ public class Ball : MonoBehaviour
             {
                 Ball ob = this.GetBallType() == BallType.Cue ? b : this;
                 Cueball cb = this.GetBallType() == BallType.Cue ? (Cueball)this : (Cueball)b;
+                if (table != null) table.ReportHitByCueball(ob);
+                if (table9Ball != null) table9Ball.ReportHitByCueball(ob);
+                
 
-                table.ReportHitByCueball(ob);
 
-                if (cb.IsBreaker)
+            if (cb.IsBreaker)
                 {
                     StartCoroutine(cb.HandleBreakShot(ob.rb));
                     cb.IsBreaker = false;
@@ -108,13 +117,20 @@ public class Ball : MonoBehaviour
         {
             EnablePhysics(false);          
             StartCoroutine(HideBall());
-            table.ReportPocketed(this);
+            if (table != null) table.ReportPocketed(this);
+            if (table9Ball != null)
+                table9Ball.ReportPocketed(this);
+            
 
         }
 
         if (obj.layer == 10)//rails
         {
-            table.ReportRailHit(this);
+            if (table != null)
+                table.ReportRailHit(this);
+            if (table9Ball != null)
+                table9Ball.ReportRailHit(this);
+           
         }
     }
 
@@ -124,7 +140,12 @@ public class Ball : MonoBehaviour
         GameObject obj = other.gameObject;
         if (obj.layer == 11)//table bounds
         {
-            table.ReportOffTheTable(this);
+
+            if (table != null)
+                table.ReportOffTheTable(this);
+            if (table9Ball != null)
+                table9Ball.ReportOffTheTable(this);
+            
         }
     }
 

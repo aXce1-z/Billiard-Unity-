@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 4
 --- !u!1 &40464011
 GameObject:
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 13
 --- !u!1 &56198512
 GameObject:
@@ -968,7 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 3
 --- !u!1 &183578710
 GameObject:
@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 14
 --- !u!1 &337815114
 GameObject:
@@ -2942,7 +2942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 15
 --- !u!1 &429658032
 GameObject:
@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 12
 --- !u!1 &512728469
 GameObject:
@@ -4072,7 +4072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 7
 --- !u!1 &583639218
 GameObject:
@@ -4492,7 +4492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 2
 --- !u!1 &705507993
 GameObject:
@@ -5590,7 +5590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 10
 --- !u!1 &876382470
 GameObject:
@@ -7579,7 +7579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 5
 --- !u!1 &1267735773
 GameObject:
@@ -7976,6 +7976,7 @@ MonoBehaviour:
   currentState: 0
   pendingState: 0
   playerOneTurn: 0
+  is8Ball: 0
   playerOneBallType: 0
   playerTwoBallType: 0
 --- !u!4 &1381133148
@@ -9608,7 +9609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 1
 --- !u!1 &1647788462
 GameObject:
@@ -10149,7 +10150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   number: 6
 --- !u!1 &1754573506
 GameObject:
@@ -11501,7 +11502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 9
 --- !u!1 &2030155369
 GameObject:
@@ -11687,7 +11688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3910bd75bc4a18d4dbc2a82db4e2e1d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   number: 11
 --- !u!1 &2055369231
 GameObject:

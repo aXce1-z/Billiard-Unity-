@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
+public enum GameState8Ball
 {
     undefined,
 
@@ -20,11 +20,12 @@ public enum GameState
 
     GameOver
 }
-public class GameLogic : MonoBehaviour
+public class GameLogic8Ball : MonoBehaviour
 {
     [SerializeField] private GameEvent cbReadyForStrike, cbReadyForRepositioning, respotCueball,respotEightball, rerack, passTurn, groupsAssigned, dialogMessageEvent, restartGame;
-    [SerializeField] private GameState currentState, pendingState;
+    [SerializeField] private GameState8Ball currentState, pendingState;
     [SerializeField] private bool playerOneTurn;
+    [SerializeField] private bool is8Ball;
     private int solidsLeft, stripesLeft;
     [SerializeField] private BallType playerOneBallType, playerTwoBallType;
     private string player, opponent;
@@ -34,7 +35,7 @@ public class GameLogic : MonoBehaviour
     }
     private void StartGame()
     {
-        currentState = GameState.GameStarted;
+        currentState = GameState8Ball.GameStarted;
         solidsLeft = stripesLeft = 7;
         PassTurn();
         player = "Player 1";
@@ -54,84 +55,84 @@ public class GameLogic : MonoBehaviour
         Debug.Log("Cueball hit!");
         switch (currentState)
         {
-            case GameState.BreakshotBallInHand:
-                currentState = GameState.Breakshot;
+            case GameState8Ball.BreakshotBallInHand:
+                currentState = GameState8Ball.Breakshot;
                 break;
 
-            case GameState.OpenTableBallInHand:
-            case GameState.OpenTableTableInPosition:
-                currentState = GameState.OpenTable;
+            case GameState8Ball.OpenTableBallInHand:
+            case GameState8Ball.OpenTableTableInPosition:
+                currentState = GameState8Ball.OpenTable;
                 break;
 
-            case GameState.MainPhaseBallInHand:
-            case GameState.MainPhaseTableInPosition:
-                currentState = GameState.MainPhase;
+            case GameState8Ball.MainPhaseBallInHand:
+            case GameState8Ball.MainPhaseTableInPosition:
+                currentState = GameState8Ball.MainPhase;
                 break;
         }
     }
     public void TableSet()
     {
         Debug.Log("Table set!");
-        if (currentState == GameState.GameOver) return;
+        if (currentState == GameState8Ball.GameOver) return;
 
         switch (currentState)
         {
-            case GameState.OpenTableTableInPosition:
+            case GameState8Ball.OpenTableTableInPosition:
                 cbReadyForStrike.Raise();
                 return;
 
-            case GameState.BreakshotBallInHand:
-            case GameState.OpenTableBallInHand:
-            case GameState.MainPhaseBallInHand:
+            case GameState8Ball.BreakshotBallInHand:
+            case GameState8Ball.OpenTableBallInHand:
+            case GameState8Ball.MainPhaseBallInHand:
                 cbReadyForRepositioning.Raise();
                 cbReadyForStrike.Raise();  
                 return;
         }
 
-        if (currentState == GameState.GameStarted)
+        if (currentState == GameState8Ball.GameStarted)
         {
-            currentState = GameState.BreakshotBallInHand;
+            currentState = GameState8Ball.BreakshotBallInHand;
             cbReadyForRepositioning.Raise();
             cbReadyForStrike.Raise();
             ClearShotInfo();
             return;
         }
 
-        if (pendingState == GameState.GameStarted)
+        if (pendingState == GameState8Ball.GameStarted)
         {
             rerack.Raise();
             PassTurn();
-            currentState = GameState.GameStarted;
+            currentState = GameState8Ball.GameStarted;
             ClearShotInfo();
             return;
         }
         
-        if (pendingState == GameState.BreakshotBallInHand)
+        if (pendingState == GameState8Ball.BreakshotBallInHand)
         {
             respotCueball.Raise(true);//behind the headstring
             PassTurn();
-            currentState = GameState.BreakshotBallInHand;
+            currentState = GameState8Ball.BreakshotBallInHand;
             ClearShotInfo();
             return;
         }
-        if (pendingState == GameState.OpenTableBallInHand)
+        if (pendingState == GameState8Ball.OpenTableBallInHand)
         {
             respotCueball.Raise(false);//anywhere on the table
             PassTurn();
-            currentState = GameState.OpenTableBallInHand;
+            currentState = GameState8Ball.OpenTableBallInHand;
             ClearShotInfo();
             return;
         }
-        if (pendingState == GameState.MainPhaseBallInHand)
+        if (pendingState == GameState8Ball.MainPhaseBallInHand)
         {
             respotCueball.Raise(false);//anywhere on the table
             PassTurn();
-            currentState = GameState.MainPhaseBallInHand;
+            currentState = GameState8Ball.MainPhaseBallInHand;
             ClearShotInfo();
             return;
         }
 
-        if (currentState == GameState.Breakshot)
+        if (currentState == GameState8Ball.Breakshot)
         {
             if (ballsPocketed.Count == 0)
             {
@@ -140,7 +141,7 @@ public class GameLogic : MonoBehaviour
                     dialogMessageEvent.Raise("Illegal Break!");
                     rerack.Raise();
                     PassTurn();
-                    currentState = GameState.GameStarted;
+                    currentState = GameState8Ball.GameStarted;
                     ClearShotInfo();
                     return;
                 }
@@ -154,7 +155,7 @@ public class GameLogic : MonoBehaviour
                 {
                     cbReadyForStrike.Raise();
                 }
-                currentState = GameState.OpenTableTableInPosition;
+                currentState = GameState8Ball.OpenTableTableInPosition;
                 ClearShotInfo();
                 return;
             }
@@ -166,18 +167,18 @@ public class GameLogic : MonoBehaviour
             {
                 cbReadyForStrike.Raise();
             }
-            currentState = GameState.OpenTableTableInPosition;
+            currentState = GameState8Ball.OpenTableTableInPosition;
             ClearShotInfo();
             return;
         }
 
-        if (currentState == GameState.OpenTable)
+        if (currentState == GameState8Ball.OpenTable)
         {
             if (firstHitBall == null){
                 dialogMessageEvent.Raise("Foul! No object ball hit by cueball.");
                 PassTurn();
                 respotCueball.Raise(false);
-                currentState = GameState.OpenTableBallInHand;
+                currentState = GameState8Ball.OpenTableBallInHand;
                 ClearShotInfo();
                 return;
             }
@@ -188,29 +189,29 @@ public class GameLogic : MonoBehaviour
                     dialogMessageEvent.Raise("Foul! No rail hit.");
                     PassTurn();
                     respotCueball.Raise(false);
-                    currentState = GameState.OpenTableBallInHand;
+                    currentState = GameState8Ball.OpenTableBallInHand;
                     ClearShotInfo();
                     return;
                 }
                 PassTurn();
                 cbReadyForStrike.Raise();
-                currentState = GameState.OpenTableTableInPosition;
+                currentState = GameState8Ball.OpenTableTableInPosition;
                 ClearShotInfo();
                 return;
             }
             AssignGroups();
             cbReadyForStrike.Raise();
-            currentState =GameState.MainPhaseTableInPosition;
+            currentState =GameState8Ball.MainPhaseTableInPosition;
             ClearShotInfo();
             return;
         }
-        if (currentState == GameState.MainPhase)
+        if (currentState == GameState8Ball.MainPhase)
         {
             if (eightballPocketed)
             {
                 player = playerOneTurn ? "Player 1" : "Player 2";
                 dialogMessageEvent.Raise($"{player} wins!");
-                currentState = GameState.GameOver;
+                currentState = GameState8Ball.GameOver;
                 return;
             }
          
@@ -219,7 +220,7 @@ public class GameLogic : MonoBehaviour
                 dialogMessageEvent.Raise("Foul! No object ball hit by cueball.");
                 PassTurn();
                 respotCueball.Raise(false);
-                currentState = GameState.MainPhaseBallInHand;
+                currentState = GameState8Ball.MainPhaseBallInHand;
                 ClearShotInfo();
                 return;
             }
@@ -231,13 +232,13 @@ public class GameLogic : MonoBehaviour
                     dialogMessageEvent.Raise("Foul! No rail hit.");
                     PassTurn();
                     respotCueball.Raise(false);
-                    currentState = GameState.MainPhaseBallInHand;
+                    currentState = GameState8Ball.MainPhaseBallInHand;
                     ClearShotInfo();
                     return;
                 }
                 PassTurn();
                 cbReadyForStrike.Raise();
-                currentState = GameState.MainPhaseTableInPosition;
+                currentState = GameState8Ball.MainPhaseTableInPosition;
                 ClearShotInfo();
                 return;
             }
@@ -246,7 +247,7 @@ public class GameLogic : MonoBehaviour
             }
 
             cbReadyForStrike.Raise();
-            currentState = GameState.MainPhaseTableInPosition;
+            currentState = GameState8Ball.MainPhaseTableInPosition;
             ClearShotInfo();
             return;
         }
@@ -291,7 +292,7 @@ public class GameLogic : MonoBehaviour
         firstHitBall = null;
         eightballPocketed = false;
         waitForRail = false;
-        pendingState = GameState.undefined;
+        pendingState = GameState8Ball.undefined;
     }
 
     private void updateEight()
@@ -326,28 +327,28 @@ public class GameLogic : MonoBehaviour
     {
         dialogMessageEvent.Raise("Ball off the table!");
         BallType t = ((Ball)ball).GetBallType();
-        if (currentState == GameState.Breakshot)
+        if (currentState == GameState8Ball.Breakshot)
         {
             if (t == BallType.Cue || t == BallType.Eight)
             {
-                pendingState = GameState.GameStarted;
+                pendingState = GameState8Ball.GameStarted;
             }
             return;
         }
         if (t == BallType.Eight)
         {
-            currentState = GameState.GameOver;
+            currentState = GameState8Ball.GameOver;
             return;
         }
         if (t == BallType.Cue)
         {
-            pendingState = currentState == GameState.OpenTable ? GameState.OpenTableBallInHand : GameState.MainPhaseBallInHand;
+            pendingState = currentState == GameState8Ball.OpenTable ? GameState8Ball.OpenTableBallInHand : GameState8Ball.MainPhaseBallInHand;
             return;
         }
 
         if (t == BallType.Solid) solidsLeft--;
         else if (t == BallType.Stripe) stripesLeft--;
-        pendingState = currentState == GameState.OpenTable ? GameState.OpenTableBallInHand : GameState.MainPhaseBallInHand;
+        pendingState = currentState == GameState8Ball.OpenTable ? GameState8Ball.OpenTableBallInHand : GameState8Ball.MainPhaseBallInHand;
 
     }
 
@@ -360,26 +361,26 @@ public class GameLogic : MonoBehaviour
         BallType t = ((Ball)ball).GetBallType();
         if (t == BallType.Eight)
         {
-            if (currentState == GameState.Breakshot)
+            if (currentState == GameState8Ball.Breakshot)
             {
                 eightballPocketed = true;
                 return;
             }
 
-            if (currentState == GameState.OpenTable)
+            if (currentState == GameState8Ball.OpenTable)
             {
                 opponent= playerOneTurn ? "Player 2" : "Player 1";
                 dialogMessageEvent.Raise($"Eightball pocketed. {opponent} wins!");
-                currentState = GameState.GameOver;
+                currentState = GameState8Ball.GameOver;
                 return;
             }
-            if (currentState == GameState.MainPhase)
+            if (currentState == GameState8Ball.MainPhase)
             {
                 if (!CheckEight())
                 {
                     opponent = playerOneTurn ? "Player 2" : "Player 1";
                     dialogMessageEvent.Raise($"Eightball pocketed. {opponent} wins!");
-                    currentState = GameState.GameOver;
+                    currentState = GameState8Ball.GameOver;
                     return;
                 }
                 eightballPocketed = true;
@@ -392,14 +393,14 @@ public class GameLogic : MonoBehaviour
             dialogMessageEvent.Raise("Foul! Cueball pocketed.");
             switch (currentState)
             {
-                case GameState.Breakshot:
-                    pendingState = GameState.BreakshotBallInHand;
+                case GameState8Ball.Breakshot:
+                    pendingState = GameState8Ball.BreakshotBallInHand;
                     break;
-                case GameState.OpenTable:
-                    pendingState = GameState.OpenTableBallInHand;
+                case GameState8Ball.OpenTable:
+                    pendingState = GameState8Ball.OpenTableBallInHand;
                     break;
-                case GameState.MainPhase:
-                    pendingState = GameState.MainPhaseBallInHand;
+                case GameState8Ball.MainPhase:
+                    pendingState = GameState8Ball.MainPhaseBallInHand;
                     break;
             }
 
@@ -416,7 +417,7 @@ public class GameLogic : MonoBehaviour
         Debug.Log($"{((Ball)ball)} hit the rail!");
         Ball b = (Ball)ball;
 
-        if (currentState == GameState.Breakshot && b.GetBallType() == BallType.Cue) return;
+        if (currentState == GameState8Ball.Breakshot && b.GetBallType() == BallType.Cue) return;
 
         if (!waitForRail) return;
         if (!railHits.Contains(b))
@@ -430,28 +431,27 @@ public class GameLogic : MonoBehaviour
 
     public void HitByCueball(object ball)
     {
-        Debug.Log($"{((Ball)ball)} hit by cueball!");
-
+        
         waitForRail = true;
 
-        if (currentState == GameState.Breakshot) return;
+        if (currentState == GameState8Ball.Breakshot) return;
         if (firstHitBall != null) return;
 
         firstHitBall = ((Ball)ball).GetBallType();
 
-        if (currentState == GameState.OpenTable)
+        if (currentState == GameState8Ball.OpenTable)
         {
             if (firstHitBall == BallType.Eight)
             {
                 dialogMessageEvent.Raise("Foul! Wrong ball hit.");
-                pendingState = GameState.OpenTableBallInHand;
+                pendingState = GameState8Ball.OpenTableBallInHand;
             }
             return;
         }
         if (firstHitBall != GetCorrectBallType())
         {
             dialogMessageEvent.Raise("Foul! Wrong ball hit.");
-            pendingState = GameState.MainPhaseBallInHand;
+            pendingState = GameState8Ball.MainPhaseBallInHand;
             return;
         }
     }
