@@ -18,7 +18,6 @@ UnityEditor 2022.3.53f1c1
 * 版本控制：Unity团结云、Git
 ## 分工情况
 * 朱胤存：实现完整单机版
-* 
 ## 使用说明
 * 主菜单中可选择：Play Eight Ball(中式八球), Play Nine Ball（美式九球）, Info（查看游戏相关信息）, Quit（退出游戏）
 * 点击游戏界面左上角菜单按钮可选择Restart（重新开始游戏）或Main Menu（返回主菜单）
